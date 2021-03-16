@@ -13,4 +13,4 @@ I Don't Really Have A Job. I Just Work In A Discord Server
 - 📫 How to reach me: Add Me On Discord (MoronLeader#1385)
 - ⚡ Fun fact: I Bite My Nails...
 
-![Dev's github stats](https://github-readme-stats.vercel.app/api?username=MoronDev)
+![Dev's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&theme=radical&show_icons=true)
