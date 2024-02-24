@@ -198,18 +198,3 @@ if OverideUI then
     Notifications = NotificationsOveride
     HatchEggs(EggNameOveride, EggAmountOveride)
 end
-
-
-
-_G.loop = true
-_G.loopDelay = 1 -- in seconds
-
-local args = {
-    [1] = "Tech Flurry Egg",
-    [2] = 74
-}
-
-while _G.loop do
-    game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Eggs_RequestPurchase"):InvokeServer(unpack(args))
-    task.wait(loopDelay)
-end
