@@ -1,20 +1,215 @@
-([[
-                   This script has been licensed using Luarmor
-                Luarmor v3.5, Lua whitelisting system by @fedaral#0
-                           https://luarmor.net/
+-- // Important
+OverideUI = true -- if u want the script to automatically start hatching with custom settings when it is ran then set this to true, if u want to use the UI settings to start hatching set to false and leave the settings.
+EggNameOveride = "Tech Ciruit Egg" -- egg name. Only if overideUI is true
+EggAmountOveride = 10000000000 -- ammount of eggs to hatch. Only if overideUI is true
+NotificationsOveride = true -- notifications. Only if overide is true
 
-         _         _                        _    
-        / \  _   _| |_ ___  _ __ __ _ _ __ | | __
-       / _ \| | | | __/ _ \| '__/ _` | '_ \| |/ /
-      / ___ \ |_| | || (_) | | | (_| | | | |   < 
-     /_/   \_\__,_|\__\___/|_|  \__,_|_| |_|_|\_\
-                                                 
+-- Please note you cannot disable the hatching or use the user interface when the overide settings are on.
 
-                                                     
-                 Script ID: e0524d455d8e06d7a9d6d72104257cff
+-- // Types
+type SaveInfoType = {
+    EggHatchCount: number;
+};
 
-            Please use the api.luarmor.net loadstring to load this script. (for your safety)
-          You can use https://luarmor.net/check to see if this script is verified & safe to run.
-]])
+type WorkspaceType = Workspace & {
+    __THINGS: Folder & {
+        Eggs: Model & {
+            Main: Model & {
+                [string]: Egg
+            };
+        };
+    };
+};
 
-{(function(b)local c=debug.getmetatable(b)debug.setmetatable(b,{__call=function(d,e)debug.setmetatable(b,c)return function(b)b{'e0524d455d8e06d7a9d6d72104257cff',d}end end})end)''}(function(b)local b=b[1]local c=''local d=24915;local e=0;local f={}while e<966 do e=e+1;while e<605 and d%5260<2630 do e=e+1;d=(d-466)%41090;local b=e+d;if(d%3504)>1752 then d=(d-706)%30483;while e<313 and d%7102<3551 do e=e+1;d=(d*411)%43087;local b=e+d;if(d%14970)>7485 then d=(d*355)%41240;local b=76830;if not f[b]then f[b]=1;c=c..'.n'end elseif d%2~=0 then d=(d*316)%34377;local b=51374;if not f[b]then f[b]=1;c=c..'luarmor'end else d=(d*939)%2412;e=e+1;local b=67052;if not f[b]then f[b]=1 end end end elseif d%2~=0 then d=(d+986)%9320;while e<597 and d%3566<1783 do e=e+1;d=(d-950)%7147;local b=e+d;if(d%4020)<2010 then d=(d+826)%6247;local b=79206;if not f[b]then f[b]=1;c=c..'ht'end elseif d%2~=0 then d=(d+737)%14175;local b=51471;if not f[b]then f[b]=1;c=c..'tp'end else d=(d*705)%44808;e=e+1;local b=58695;if not f[b]then f[b]=1;c=c..'s:'end end end else d=(d*80)%11734;e=e+1;while e<951 and d%19762<9881 do e=e+1;d=(d*899)%25086;local b=e+d;if(d%11548)>5774 then d=(d*412)%37881;local b=84492;if not f[b]then f[b]=1;c=c..'//'end elseif d%2~=0 then d=(d-419)%22808;local b=94003;if not f[b]then f[b]=1;c=c..'ap'end else d=(d-851)%30011;e=e+1;local b=21386;if not f[b]then f[b]=1;c=c..'i.'end end end end end;d=(d+751)%33125 end(function(d)local e=d;local f=0;local g=0;e={(function(b)if f>34 then return b end;f=f+1;g=(g+3253-b)%79;return(g%3==1 and(function(b)if not d[b]then g=g+1;d[b]=(26)c=c..'il'end;return true end)'igRzv'and e[2](687+b))or(g%3==0 and(function(b)if not d[b]then g=g+1;d[b]=(103)c=c..'.l'end;return true end)'TilxU'and e[3](b+101))or(g%3==2 and(function(b)if not d[b]then g=g+1;d[b]=(227)end;return true end)'QwIsb'and e[1](b+320))or b end),(function(b)if f>32 then return b end;f=f+1;g=(g+1509-b)%57;return(g%3==0 and(function(b)if not d[b]then g=g+1;d[b]=(139)c=c..'et'end;return true end)'aOitw'and e[3](909+b))or(g%3==1 and(function(b)if not d[b]then g=g+1;d[b]=(65)end;return true end)'ObBbT'and e[1](b+129))or(g%3==2 and(function(b)if not d[b]then g=g+1;d[b]=(153)c=c..'ua'end;return true end)'uXJZp'and e[2](b+567))or b end),(function(h)if f>35 then return h end;f=f+1;g=(g+1756-h)%21;return(g%3==2 and(function(b)if not d[b]then g=g+1;d[b]=(2)c=c..'/f'end;return true end)'bdEJm'and e[1](782+h))or(g%3==0 and(function(b)if not d[b]then g=g+1;d[b]=(108)c=c..'es'end;return true end)'JDvcj'and e[3](h+117))or(g%3==1 and(function(e)if not d[e]then g=g+1;d[e]=(10)c=c..'/v3/l/'..b end;return true end)'tIFsS'and e[2](h+748))or h end)}e[2](8832)end){}loadstring(game:HttpGet(c)){}end)
+type Egg = Model & {
+    Tier: Part
+}
+
+type ReplicatedStorageType = ReplicatedStorage & {
+    Library: ModuleScript;
+    Network: Folder & {
+        Eggs_RequestPurchase: RemoteFunction;
+        Eggs_RequestUnlock: RemoteFunction;
+    };
+};
+
+type LibraryType = {
+    Save: {
+        Get: () -> SaveInfoType;
+    };
+    Directory: {
+        Eggs: {
+            [string]: {
+                _id: string;
+                eggNumber: number;
+                pets: {[string]: {}};
+                name: string;
+                zoneNumber: number;
+            };
+        };
+    };
+};
+
+-- // Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage") :: ReplicatedStorageType
+local Workspace = game:GetService("Workspace") :: WorkspaceType
+local Players = game:GetService("Players")
+
+-- // Modules
+local Library: LibraryType = require(ReplicatedStorage.Library) :: any
+
+-- // Variables
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Auto Hatch by Nova"; HidePremium = false; SaveConfig = true; ConfigFolder = "NovaHub"; IntroEnabled = false})
+local Network = ReplicatedStorage.Network
+local Things = Workspace.__THINGS
+local Player = Players.LocalPlayer
+local EggAnim = getsenv(Player.PlayerScripts.Scripts.Game["Egg Opening Frontend"])
+local Enabled = true
+local isRunning = false
+local Notifications = false
+local EggName
+local Amount
+
+--// Functions
+local function SendNotification(name, content, time)
+    if not Notifications then return end
+    OrionLib:MakeNotification({
+        Name = name,
+        Content = content,
+        Image = "rbxassetid://16372231791",
+        Time = time
+    })
+end
+
+local function GetEggs()
+    local eggs = {}
+
+    for i, egg in pairs(Library.Directory.Eggs) do
+        if not egg.eggNumber then continue end
+        table.insert(eggs, egg.name)
+    end
+
+    table.sort(eggs)
+
+    return eggs
+end
+
+local function HatchEggs(eggName: string, amount: number)
+    if not Enabled then return end
+    isRunning = true
+    eggName = eggName or "Cracked Egg"
+    amount = amount or 1
+
+    local saveinfo = Library.Save.Get()
+    local EggNumber = Library.Directory.Eggs[eggName].eggNumber
+    local EggModel = Things.Eggs.Main:FindFirstChild(`{EggNumber} - Egg Capsule`) :: Egg
+    local EggTeleport = EggModel.Tier.CFrame
+    local eggHatchCount = saveinfo.EggHatchCount
+    local hatchedEggs = 0
+
+    SendNotification("Hatch Notification", `Hatching {amount} {eggName}'s!`, 3)
+
+    Network.Eggs_RequestUnlock:InvokeServer(eggName)
+
+    repeat
+        if not Enabled then break end
+
+        local eggsToHatch = if (hatchedEggs + eggHatchCount) > amount then (eggHatchCount - ((hatchedEggs + eggHatchCount) - amount)) else eggHatchCount
+
+        Player.Character.HumanoidRootPart.CFrame = EggTeleport * CFrame.new(0.6,0,0)
+
+        local success = Network.Eggs_RequestPurchase:InvokeServer(eggName, eggsToHatch)
+
+        if success then hatchedEggs += eggsToHatch; SendNotification("Hatch Count", `Hatched a total of {hatchedEggs} {eggName}'s!`, 5) end
+
+        if not Enabled then break end
+        task.wait(0.5)
+    until hatchedEggs >= amount
+
+    SendNotification("Hatch Notification", `Stopped Hatching!`, 3)
+
+    isRunning = false
+end
+
+if not OverideUI then
+    --// User Interface variables
+    local AutoHatchTab = Window:MakeTab({
+        Name = "Auto Hatch",
+        PremiumOnly = false
+    })
+
+    local SettingsSection = AutoHatchTab:AddSection({
+        Name = "Settings"
+    })
+
+    --// User Interface Settings
+    local EnabledButton = SettingsSection:AddToggle({
+        Name = "Enabled",
+        Default = false,
+        Callback = function(Value)
+            Enabled = Value
+            repeat task.wait(0.1) until not isRunning
+            HatchEggs(EggName, Amount)
+        end    
+    })
+
+    SettingsSection:AddToggle({
+        Name = "Notifications",
+        Default = false,
+        Callback = function(Value)
+            notifications = Value
+        end    
+    })
+
+    SettingsSection:AddTextbox({
+        Name = "Amount",
+        Default = 1,
+        TextDisappear = false,
+        Callback = function(Value)
+            pcall(function()
+                Amount = tonumber(Value)
+
+                SendNotification("Settings", `Set hatch amount to {Value}!`, 2)
+            end)
+        end
+    })
+
+    SettingsSection:AddDropdown({
+        Name = "Egg",
+        Default = "Cracked Egg",
+        Options = GetEggs(),
+        Callback = function(Value)
+            EggName = Value
+
+            SendNotification("Settings", `Set egg name to {Value}!`, 2)
+        end    
+    })
+end
+
+--// Main
+hookfunction(EggAnim.PlayEggAnimation, function()
+    return
+end)
+
+if OverideUI then
+    Enabled = true
+    isRunning = false
+    Notifications = NotificationsOveride
+    HatchEggs(EggNameOveride, EggAmountOveride)
+end
+
+
+
+_G.loop = true
+_G.loopDelay = 1 -- in seconds
+
+local args = {
+    [1] = "Tech Flurry Egg",
+    [2] = 74
+}
+
+while _G.loop do
+    game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild("Eggs_RequestPurchase"):InvokeServer(unpack(args))
+    task.wait(loopDelay)
+end
